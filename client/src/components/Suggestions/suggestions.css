@@ -1,0 +1,32 @@
+.home-user-name-suggestions-people-flex{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.home-user-name-suggestions-people-img img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 17px;
+    object-fit: cover;
+}
+.home-user-name-suggestions-people-name h3{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+.home-user-name-suggestions-people-name h4{
+    font-size: 13px;
+    font-weight: 400;
+    color: #ACACAC;
+    margin: 0;
+}
+.home-user-name-suggestions-people-name{
+  width: 73%;
+}
+.home-user-name-suggestions-people-switch span{
+    font-size: 13px;
+    font-weight: 500;
+    color: #0F9BF6;
+    cursor: pointer;
+}

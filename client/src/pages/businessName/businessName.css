@@ -1,0 +1,56 @@
+.business-name-box{
+    width: 40%;
+    height: auto;
+    border: 1px solid #E4E4E4;
+    margin-top: 40px;
+    border-radius: 3px;
+    padding: 20px;
+}
+.business-name-box-flex{
+    display: flex;
+    justify-content: center;
+}
+.business-name-box h2{
+    text-align: center;
+    color: #656565;
+    font-size: 23px;
+    font-weight: 400;
+}
+.business-name-box h6{
+    text-align: center;
+    color: #959595;
+    font-size: 14px;
+    font-weight: 400;
+}
+.business-name-page-textarea{
+    resize: none;
+    margin-top: 27px;
+    border-radius: 8px;
+    padding: 15px;
+}
+.business-name-page-textarea-flex{
+    display: flex;
+    justify-content: center;
+}
+.business-name-page-continue{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.business-name-page-continue-box{
+    width: 72%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2DC0DA;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.business-name-page-continue-box h4{
+    color: white;
+    font-weight: 400;
+    font-size: 19px;
+    margin: 0;
+    letter-spacing: 2px;
+}

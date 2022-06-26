@@ -1,0 +1,76 @@
+.uploadBusiness-flex{
+    display: flex;
+    justify-content: center;
+}
+.uploadBusiness-box{
+    width: 40%;
+    height: auto;
+    border: 1px solid #E4E4E4;
+    margin-top: 40px;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.uploadBusiness-box h2{
+    text-align: center;
+    color: #656565;
+    font-size: 23px;
+    font-weight: 400;
+}
+.uploadBusiness-box h6{
+    text-align: center;
+    color: #959595;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 14px;
+}
+.uploadBusiness-info-flex{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+.uploadBusiness-info-box-flex{
+    width: 77%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 2px solid #E2E2E2;
+    padding: 4px;
+}
+.uploadBusiness-info-box-flex input{
+    border: none;
+    outline: none;
+    background: transparent;
+   
+}
+.uploadBusiness-info-box-flex svg{
+    font-size: 20px;
+    margin-right: 20px;
+}
+.uploadBusiness-info-box-flex input::placeholder{
+    font-size: 14px;
+    color: #AAAAAA;
+    font-family: 400;
+}
+.uploadBusiness-continue{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.uploadBusiness-continue-box{
+    width: 72%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2DC0DA;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.uploadBusiness-continue-box h4{
+    color: white;
+    font-weight: 400;
+    font-size: 19px;
+    margin: 0;
+    letter-spacing: 2px;
+}
