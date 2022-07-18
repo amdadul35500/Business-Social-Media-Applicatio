@@ -15,6 +15,7 @@ const { checkAddUser } = require("../controllers/checkAddUser");
 const { addUser } = require("../controllers/addUserController");
 const { profileUpdate } = require("../controllers/profileUpdate");
 const { getLoggedUser } = require("../controllers/getLoggedUser");
+const { updateAll } = require("../controllers/updateAllInfo");
 
 // update category
 router.put("/update/category/?", updateUserInfo);
@@ -66,6 +67,9 @@ router.put("/profileUpdate", profileUpdate);
 
 // get logged user
 router.get("/loggedUser/:email", getLoggedUser);
+
+// update from profile
+router.put("/allUpdate/:id", updateAll);
 
 module.exports = router;
 //:beenAddToConversation

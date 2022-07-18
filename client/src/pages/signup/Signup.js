@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./signup.css";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -7,6 +7,8 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import { NavLink, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config";
 import CircularProgress from "@mui/material/CircularProgress";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { useGlobalContext } from "../../context/context";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -19,6 +21,10 @@ const Signup = () => {
   const [businessError, setBusinessError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useGlobalContext();
+
+  const GOOGLE_CLIENT_ID =
+    "1034266394471-jbgsc0o8srtusgvd6dlcd17ssl1b06cp.apps.googleusercontent.com";
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -42,20 +48,54 @@ const Signup = () => {
       navigate("/signin");
     } catch (error) {
       setLoading(false);
+
       setUsernameerror(
-        error.response.data.username ? error.response.data.username.msg : ""
+        error.response.data["username"] ? error.response.data.username.msg : ""
       );
       setEmailError(
-        error.response.data.email ? error.response.data.email.msg : ""
+        error.response.data["email"] ? error.response.data.email.msg : ""
       );
       setPasswordError(
-        error.response.data.password ? error.response.data.password.msg : ""
+        error.response.data["password"] ? error.response.data.password.msg : ""
       );
       setBusinessError(
-        error.response.data.business ? error.response.data.business.msg : ""
+        error.response.data["business"] ? error.response.data.business.msg : ""
       );
       console.log(error);
     }
+  };
+
+  const onSuccess = async (res) => {
+    try {
+      const response = await axiosInstance.post("api/auth/signin/google", {
+        username: res.profileObj.name,
+        email: res.profileObj.email,
+        images: res.profileObj.imageUrl,
+        profileId: res.profileObj.googleId,
+      });
+
+      localStorage.setItem("token", JSON.stringify(response.data[1]));
+      const { data } = await axiosInstance.get(
+        `api/users/currentUser/?email=${res.profileObj.email}`
+      );
+      setCurrentUser(data);
+      if (
+        data?.businessAddress &&
+        data?.category &&
+        data?.description &&
+        data?.businessName
+      ) {
+        navigate("/");
+      } else {
+        navigate("/businessname");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onFailure = (res) => {
+    console.log(res);
   };
 
   return (
@@ -65,7 +105,7 @@ const Signup = () => {
           <div className="signup-main">
             <div
               className="signup-logo signup-logo-f-r"
-              style={{ margin: "25px 0" }}
+              style={{ margin: "22px 0" }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,9 +143,10 @@ const Signup = () => {
                 <h4>Registration</h4>
                 <form onSubmit={handleSignUp}>
                   <div className="singup-input-box">
-                    <div className="singup-input">
+                    <div className="singup-input-2">
                       <PersonOutlineIcon />
                       <input
+                        required
                         type="text"
                         name="username"
                         value={username}
@@ -117,7 +158,7 @@ const Signup = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "100px",
+                      marginLeft: "77px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}
@@ -125,9 +166,10 @@ const Signup = () => {
                     {usernameerror ? usernameerror : ""}
                   </p>
                   <div className="singup-input-box">
-                    <div className="singup-input">
+                    <div className="singup-input-2">
                       <MailOutlineIcon />
                       <input
+                        required
                         type="email"
                         name="email"
                         placeholder="Email"
@@ -139,7 +181,7 @@ const Signup = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "100px",
+                      marginLeft: "77px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}
@@ -147,9 +189,10 @@ const Signup = () => {
                     {emailError ? emailError : ""}
                   </p>
                   <div className="singup-input-box">
-                    <div className="singup-input">
+                    <div className="singup-input-2">
                       <KeyIcon />
                       <input
+                        required
                         type="password"
                         name="password"
                         value={password}
@@ -162,16 +205,17 @@ const Signup = () => {
                     style={{
                       color: "red",
                       marginBottom: "0",
-                      marginLeft: "100px",
+                      marginLeft: "77px",
                       fontSize: "13px",
                     }}
                   >
                     {passwordError ? passwordError : ""}
                   </p>
                   <div className="singup-input-box">
-                    <div className="singup-input">
+                    <div className="singup-input-2">
                       <BusinessCenterIcon />
                       <input
+                        required
                         type="text"
                         name="business"
                         valuse={business}
@@ -183,7 +227,7 @@ const Signup = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "100px",
+                      marginLeft: "77px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}
@@ -191,15 +235,16 @@ const Signup = () => {
                     {businessError ? businessError : ""}
                   </p>
                   <div className="singup-input-box">
-                    <div
-                      type="submit"
-                      className="singup-input"
+                    <button
+                      className="singup-input-2"
                       style={{
                         background: "#2DC0DA",
                         justifyContent: "center",
+                        border: "none",
                       }}
                     >
-                      <button
+                      <a
+                        type="submit"
                         style={{
                           border: "none",
                           outline: "none",
@@ -216,24 +261,53 @@ const Signup = () => {
                         ) : (
                           "Sing Up"
                         )}
-                      </button>
-                    </div>
+                      </a>
+                    </button>
                   </div>
-                  <NavLink to="/signin">
-                    <h6
-                      style={{
-                        fontWeight: "300",
-                        fontSize: "12px",
-                        textAlign: "center",
-                        color: "#8B8B8B",
-                        marginTop: "15px",
-                        marginBottom: "23px",
-                      }}
-                    >
-                      Have an account?
-                    </h6>
-                  </NavLink>
                 </form>
+                <h6
+                  style={{
+                    fontWeight: "300",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    color: "#8B8B8B",
+                    marginTop: "7px",
+                    marginBottom: "7px",
+                  }}
+                >
+                  or
+                </h6>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      width: "90%",
+                    }}
+                  >
+                    <GoogleLogin
+                      className="google-button"
+                      clientId={GOOGLE_CLIENT_ID}
+                      buttonText="Continue with Google"
+                      onSuccess={onSuccess}
+                      onFailure={onFailure}
+                      cookiePolicy={"single_host_origin"}
+                      isSignedIn={true}
+                    ></GoogleLogin>
+                  </div>
+                </div>
+                <NavLink to="/signin">
+                  <h6
+                    style={{
+                      fontWeight: "300",
+                      fontSize: "12px",
+                      textAlign: "center",
+                      color: "#8B8B8B",
+                      marginTop: "7px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Have an account?
+                  </h6>
+                </NavLink>
               </div>
             </div>
           </div>

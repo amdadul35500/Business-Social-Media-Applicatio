@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "./home.css";
 import Header from "../../layout/header/Header";
 import Post from "../../components/post/Post";
@@ -65,7 +65,13 @@ const Home = () => {
             <div className="row">
               <div className="col-md-7 col-12" style={{ marginTop: "85px" }}>
                 {allPost ? (
-                  allPost.map((post) => <Post post={post} key={post.id} />)
+                  allPost.map((post) => (
+                    <div key={post.id}>
+                      <Suspense fallback={<h1>Loading...</h1>}>
+                        <Post post={post} />
+                      </Suspense>
+                    </div>
+                  ))
                 ) : (
                   <div
                     style={{
@@ -84,7 +90,7 @@ const Home = () => {
               <div
                 className="col-5 home-5-f-r"
                 style={{
-                  marginTop: "85px",
+                  marginTop: "90px",
                   display: "flex",
                   justifyContent: "center",
                 }}
@@ -96,12 +102,10 @@ const Home = () => {
                         <div className="home-user-name-img">
                           <img
                             src={
-                              currentUser.profilePhoto
-                                ? currentUser.profilePhoto.length > 100
-                                  ? currentUser.profilePhoto
-                                  : currentUser.profilePhoto.length < 100
-                                  ? PF
-                                  : "./images/noAvatar.png"
+                              currentUser.profilePhoto.includes("https")
+                                ? currentUser.profilePhoto
+                                : PF.includes("http")
+                                ? PF
                                 : "./images/noAvatar.png"
                             }
                             alt="img"
@@ -124,7 +128,9 @@ const Home = () => {
                     </NavLink>
                   </div>
                   {allUser.map((user) => (
-                    <Suggestions user={user} />
+                    <div key={user.id}>
+                      <Suggestions user={user} />
+                    </div>
                   ))}
                 </div>
               </div>

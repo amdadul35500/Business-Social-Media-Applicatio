@@ -3,11 +3,13 @@ import "./singleAddUser.css";
 import { useGlobalContext } from "../../context/context";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const SingleAddUser = ({ user }) => {
   const [follow, setFollow] = useState("It's you");
   const { currentUser } = useGlobalContext();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const PF = `http://localhost:5000/profilePicture/${user.profilePhoto}`;
 
@@ -34,9 +36,11 @@ const SingleAddUser = ({ user }) => {
 
   const handleFollow = async () => {
     try {
+      setLoading(true);
       const { data } = await axiosInstance.get(
         `api/users/addUser/${currentUser.id}/${user.id}`
       );
+      setLoading(false);
       if (data === "conversation already added") {
         setFollow("Added");
         navigate("/messenger");
@@ -60,12 +64,10 @@ const SingleAddUser = ({ user }) => {
         <div>
           <img
             src={
-              user.profilePhoto
-                ? user.profilePhoto.length > 100
-                  ? user.profilePhoto
-                  : user.profilePhoto.length < 100
-                  ? PF
-                  : "./images/noAvatar.png"
+              user.profilePhoto.includes("https")
+                ? user.profilePhoto
+                : PF.includes("http")
+                ? PF
                 : "./images/noAvatar.png"
             }
             alt="img"
@@ -73,8 +75,18 @@ const SingleAddUser = ({ user }) => {
 
           <span>{user.username}</span>
         </div>
-        <span className="follow-btn" onClick={handleFollow}>
-          {follow}
+        <span
+          className={loading ? "follow-btn-3" : "follow-btn"}
+          onClick={handleFollow}
+        >
+          {loading ? (
+            <CircularProgress
+              color="inherit"
+              className="circle-button-follow"
+            />
+          ) : (
+            follow
+          )}
         </span>
       </div>
     </>

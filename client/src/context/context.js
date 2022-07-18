@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   );
 
   const [forLoadHomePage, setForLoadHomePage] = useState(false);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
@@ -20,6 +21,8 @@ const AppProvider = ({ children }) => {
         setCurrentUser,
         forLoadHomePage,
         setForLoadHomePage,
+        setFile,
+        file,
       }}
     >
       {children}

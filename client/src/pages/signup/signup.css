@@ -15,6 +15,7 @@
     margin-top: 15px;
     color: #313131;
     font-weight: 400;
+    margin-bottom: 0;
 }
 .signup-logo{
     text-align: center;
@@ -25,27 +26,27 @@
     justify-content: center;
     height: 450px;
 }
-.singup-input{
+.singup-input-2{
     display: flex;
     align-items: center;
-    padding: 6.5px 30px;
+    padding: 8px 30px;
     background: #ffffff;
     width: 90%;
     border-radius: 40px;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
 }
-.singup-input svg{
+.singup-input-2 svg{
     margin-right: 10px;
     color: #DEDEDE;
     font-size: 19px;
 }
-.singup-input input{
+.singup-input-2 input{
     width: 80%;
     border: none;
     outline: none;
     background: transparent;
 }
-.singup-input input::placeholder{
+.singup-input-2 input::placeholder{
     color:#D0D0D0;
     font-weight: 300;
     font-size: 14px;

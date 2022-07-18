@@ -67,8 +67,11 @@ const BusinessName = () => {
                     {error ? error : ""}
                   </p>
                   <div className="business-name-page-continue">
-                    <div className="business-name-page-continue-box">
-                      <h4 onClick={handleClick}>
+                    <div
+                      className="business-name-page-continue-box"
+                      onClick={handleClick}
+                    >
+                      <h4>
                         {loading ? (
                           <CircularProgress
                             color="inherit"

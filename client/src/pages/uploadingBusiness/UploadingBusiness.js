@@ -18,7 +18,7 @@ const UploadingBusiness = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { currentUser } = useGlobalContext();
+  const { currentUser, setCurrentUser } = useGlobalContext();
 
   const handleClick = async () => {
     if (email && address && language && country) {
@@ -35,16 +35,24 @@ const UploadingBusiness = () => {
           `api/users/update/uploadbusiness/?email=${currentUser.email}`,
           businessInfo
         );
+        const res = await axiosInstance.get(
+          `api/users/currentUser/?email=${currentUser.email}`
+        );
+        setCurrentUser(data);
         if (data) {
           setLanguage(false);
-          navigate("/selectprofilephoto");
+          if (currentUser.profilePhoto) {
+            navigate("/");
+          } else {
+            navigate("/selectprofilephoto");
+          }
         }
       } catch (error) {
         setLanguage(false);
         console.log(error);
       }
     } else {
-      setError("Please fill all input fild!");
+      setError("Please fill all input feild!");
     }
   };
 
@@ -128,8 +136,11 @@ const UploadingBusiness = () => {
                     {error ? error : ""}
                   </p>
                   <div className="uploadBusiness-continue">
-                    <div className="uploadBusiness-continue-box">
-                      <h4 onClick={handleClick}>
+                    <div
+                      className="uploadBusiness-continue-box"
+                      onClick={handleClick}
+                    >
+                      <h4>
                         {loading ? (
                           <CircularProgress
                             color="inherit"

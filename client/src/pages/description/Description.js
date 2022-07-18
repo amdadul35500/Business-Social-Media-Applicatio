@@ -66,8 +66,8 @@ const Description = () => {
                     {error ? error : ""}
                   </p>
                   <div className="tags-box-continue-flex">
-                    <div className="tags-continue-box">
-                      <h4 onClick={handleClick}>
+                    <div className="tags-continue-box" onClick={handleClick}>
+                      <h4>
                         {loading ? (
                           <CircularProgress
                             color="inherit"

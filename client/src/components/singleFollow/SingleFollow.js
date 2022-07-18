@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./singleFollow.css";
 import { useGlobalContext } from "../../context/context";
 import { axiosInstance } from "../../config";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const SingleFollow = ({ user }) => {
   const [follow, setFollow] = useState("It's you");
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useGlobalContext();
 
   const PF = `http://localhost:5000/profilePicture/${user.profilePhoto}`;
@@ -16,7 +18,6 @@ const SingleFollow = ({ user }) => {
         const { data } = await axiosInstance.get(
           `api/users/checkFollowUnfollow/${currentUser.id}/${user.id}`
         );
-        console.log(data);
         if (data === "follow") {
           setFollow("Following");
         }
@@ -32,10 +33,12 @@ const SingleFollow = ({ user }) => {
 
   const handleFollow = async () => {
     try {
+      setLoading(true);
       const { data } = await axiosInstance.post("api/users/follow", {
         followerId: currentUser.id,
         followingId: user.id,
       });
+      setLoading(false);
       if (data === "user has been followed!") {
         setFollow("Following");
       }
@@ -43,6 +46,7 @@ const SingleFollow = ({ user }) => {
         setFollow("Follow");
       }
     } catch (error) {
+      alert("You can't follow yourself!");
       console.log(error);
     }
   };
@@ -53,20 +57,28 @@ const SingleFollow = ({ user }) => {
         <div>
           <img
             src={
-              user.profilePhoto
-                ? user.profilePhoto.length > 100
-                  ? user.profilePhoto
-                  : user.profilePhoto.length < 100
-                  ? PF
-                  : "./images/noAvatar.png"
+              user.profilePhoto.includes("https")
+                ? user.profilePhoto
+                : PF.includes("http")
+                ? PF
                 : "./images/noAvatar.png"
             }
             alt="img"
           />
           <span>{user.username}</span>
         </div>
-        <span className="follow-btn" onClick={handleFollow}>
-          {follow}
+        <span
+          className={loading ? "follow-btn-2" : "follow-btn"}
+          onClick={handleFollow}
+        >
+          {loading ? (
+            <CircularProgress
+              color="inherit"
+              className="circle-button-follow"
+            />
+          ) : (
+            follow
+          )}
         </span>
       </div>
     </>

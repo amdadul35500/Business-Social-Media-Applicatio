@@ -1,0 +1,42 @@
+.photoShare{
+    background: #FAFAFA;
+}
+.photoShare-main-flex{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
+.photoShare-first-flex img{
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.photoShare-second-flex img{
+    width: 116px;
+    height: 116px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+.photoShare-main-flex div textarea{
+    resize: none !important;
+    border: none !important;
+    background: transparent !important;
+    outline: none;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+.photoShare-main-flex div textarea::placeholder{
+    color: #d4d4d4;
+    font-weight: 300;
+}
+.photoShare-second-fb-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 13px;
+}
+.photoShare-second-h4{
+    font-size: 17px;
+    font-weight: bold;
+}

@@ -2,10 +2,15 @@
 CREATE TABLE users(
     id int PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
+    name VARCHAR(255) DEFAULT "",
     email VARCHAR(50)  NOT NULL,
+    website VARCHAR(255) DEFAULT "",
+    bio VARCHAR(255) DEFAULT "",
+    phonenumber VARCHAR(255) DEFAULT "",
+    gender VARCHAR(255) DEFAULT "",
     password VARCHAR(255) DEFAULT 0,
     business VARCHAR(255) DEFAULT "",
-    profilePhoto MEDIUMTEXT DEFAULT "",
+    profilePhoto VARCHAR(255) DEFAULT "",
     businessName VARCHAR(255) DEFAULT "",
     category VARCHAR(255) DEFAULT "",
     businessEmail VARCHAR(50) DEFAULT "",
@@ -20,6 +25,7 @@ CREATE TABLE posts(
     id int PRIMARY KEY AUTO_INCREMENT,
     userId VARCHAR(255) NOT NULL,
     img VARCHAR(255) NOT NULL,
+    description VARCHAR(255) DEFAULT "",
     createdAt VARCHAR(255) NOT NULL
 )
 

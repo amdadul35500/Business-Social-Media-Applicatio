@@ -8,9 +8,34 @@
 a{
   text-decoration: none !important;
 }
+.header-page{
+  position: relative;
+  width: 100%;
+}
 .circle-button{
   width: 25px !important;
   height: 25px !important;
+}
+.google-button{
+  text-transform: none !important;
+  width: 100% !important;
+  border-radius: 40px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+.googleLogOut div{
+display: none !important;
+}
+.googleLogOut{
+  width: 18% !important;
+height: 24px !important;
+}
+.googleLogOut span{
+  border: none !important;
+  width: 100% !important;
+  height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 
@@ -37,11 +62,11 @@ a{
     width: 90px;
   }
   .signup-logo {
-    margin-top: 220px !important;
+    margin-top: 108px !important;
     margin-bottom: 15px !important;
 }
 .signup-logo-f-r{
-  margin-top: 115px !important;
+  margin-top: 50px !important;
 }
   .business-name-box{
     width: 100% !important;
@@ -49,19 +74,22 @@ a{
   }
   .category-box{
     width: 100% !important;
-    margin-top: 210px !important;
+    margin-top: 70px !important;
   }
   .tags-box{
     width: 100% !important;
-    margin-top: 203px !important;
+    margin-top: 60px !important;
+  }
+  .uploadBusiness-info-box-flex{
+    width: 100% !important;
   }
   .uploadBusiness-box{
     width: 100% !important;
-    margin-top: 200px !important;
+    margin-top: 60px !important;
   }
   .select-cover-photo-box{
     width: 100% !important;
-    margin-top: 235px !important;
+    margin-top: 95px !important;
     margin-left: 12px !important;
     margin-right: 12px !important;
   }
@@ -97,13 +125,13 @@ a{
     justify-content: space-between !important;
   }
   .profile-name-flex h4{
-    font-size: 22px !important;
+    font-size: 16px !important;
     margin-right: 0px !important;
   }
   .profile-name-flex span{
     padding: 3px 4px !important;
-    margin-right: 0px !important;
-    font-size: 14px !important;
+    margin-right: 0 !important;
+    font-size: 11px !important;
   }
   .profile-f-s-r{
     display: block !important;
@@ -146,12 +174,54 @@ a{
     color: rgb(90, 90, 90) !important;
     font-size: 29px !important;
   }
+  .add-conv-flex{
+    width: 113% !important;
+  }
+  .create-post{
+    margin-top: 165px !important;
+  }
+  .filter-section div h6{
+    margin-top: 10px !important;
+  }
+  .filter-second-section-flex{
+    margin-left: 0 !important;
+    justify-content: center !important;
+  }
+  .create-post-btn{
+    margin-left: 0 !important;
+    text-align: center !important;
+  }
+  .photoShare-second-flex{
+    display: none !important;
+  }
+  .photoShare-main-flex div textarea {
+    width: 250px !important;
+  }
+  .home-photo-icon-flex svg:nth-child(4){
+    margin-left: 62% !important;
+  }
+  .second-col-f-r span{
+    font-size: 12px !important;
+  }
+  .images-footer-single-flex img{
+    width:15px !important;
+    height: 15px !important;
+  }
+  .images-footer-single-flex{
+    margin-right: 0 !important;
+  }
+  .imagefooter-small{
+    display: none !important;
+  }
 }
 
 
-@media (max-width: 380px) { 
+@media (max-width: 391px) { 
   .profile-img-flex img{
     width: 100px !important;
     height: 100px !important;
+  }
+  .home-photo-icon-flex svg:nth-child(4){
+    margin-left: 56% !important;
   }
 }

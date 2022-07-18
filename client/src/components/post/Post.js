@@ -3,8 +3,9 @@ import "./post.css";
 import { axiosInstance } from "../../config";
 import { useGlobalContext } from "../../context/context";
 import Comment from "../comment/Comment";
+import { format } from "timeago.js";
 
-const Post = ({ post }) => {
+const Post = ({ post, id }) => {
   const [userOfPost, setUserOfPost] = useState({});
   const [likes, setLikes] = useState([]);
   const [forUseEffect, setForUseEffect] = useState(false);
@@ -97,7 +98,7 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center" }} key={id}>
         <div
           style={{
             border: "1px solid #DBDBDB",
@@ -113,12 +114,10 @@ const Post = ({ post }) => {
               <div className="user-photo">
                 <img
                   src={
-                    currentUser.profilePhoto
-                      ? currentUser.profilePhoto.length > 100
-                        ? currentUser.profilePhoto
-                        : currentUser.profilePhoto.length < 100
-                        ? PF
-                        : "./images/noAvatar.png"
+                    currentUser.profilePhoto.includes("https")
+                      ? currentUser.profilePhoto
+                      : currentUser.profilePhoto
+                      ? PF2
                       : "./images/noAvatar.png"
                   }
                   alt="img"
@@ -135,7 +134,7 @@ const Post = ({ post }) => {
           <div className="home-photo-icon-flex">
             <svg
               aria-label="Like"
-              class="_ab6-"
+              className="_ab6-"
               color="#262626"
               fill="#262626"
               height="24"
@@ -150,7 +149,7 @@ const Post = ({ post }) => {
             </svg>
             <svg
               aria-label="Comment"
-              class="_ab6-"
+              className="_ab6-"
               color="#262626"
               fill="#262626"
               height="24"
@@ -162,13 +161,13 @@ const Post = ({ post }) => {
                 d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z"
                 fill="none"
                 stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeWidth="2"
               ></path>
             </svg>
             <svg
               aria-label="Share Post"
-              class="_ab6-"
+              className="_ab6-"
               color="#262626"
               fill="#262626"
               height="24"
@@ -179,8 +178,8 @@ const Post = ({ post }) => {
               <line
                 fill="none"
                 stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeidth="2"
                 x1="22"
                 x2="9.218"
                 y1="3"
@@ -190,8 +189,8 @@ const Post = ({ post }) => {
                 fill="none"
                 points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334"
                 stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeWidth="2"
               ></polygon>
             </svg>
             <svg
@@ -214,10 +213,52 @@ const Post = ({ post }) => {
             </svg>
           </div>
           <span
-            style={{ marginLeft: "12px", fontSize: "15px", display: "block" }}
+            style={{
+              marginLeft: "12px",
+              fontSize: "15px",
+              display: "block",
+              marginBottom: "8px",
+            }}
           >
             {likes.length} likes
           </span>
+          {/*start description */}
+          {post.description && (
+            <>
+              <span
+                style={{
+                  marginLeft: "12px",
+                  fontSize: "15px",
+                  marginBottom: "8px",
+                  marginRight: "6px",
+                }}
+              >
+                {currentUser.username}
+              </span>
+
+              <span
+                style={{
+                  fontSize: "15px",
+                  color: "rgb(115, 115, 115)",
+                }}
+              >
+                {post.description && post.description}
+              </span>
+              <span
+                style={{
+                  marginLeft: "12px",
+                  fontSize: "11px",
+                  display: "block",
+                  color: "#ADADAD",
+                  marginBottom: "8px",
+                }}
+              >
+                {format(post.createdAt)}
+              </span>
+            </>
+          )}
+
+          {/* end description */}
 
           {commentData.map((comment) => (
             <Comment comment={comment} key={comment.id} />
@@ -227,7 +268,7 @@ const Post = ({ post }) => {
             <div>
               <svg
                 aria-label="Emoji"
-                class="_ab6-"
+                className="_ab6-"
                 color="#262626"
                 fill="#262626"
                 height="24"

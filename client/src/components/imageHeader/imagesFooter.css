@@ -1,0 +1,20 @@
+.images-footer-main-flex{
+    display: flex;
+    align-items: center;
+    margin-top: 13px;
+}
+.images-footer-single-flex{
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+.images-footer-single-flex img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 4px;
+}
+.images-footer-single-flex small{
+    font-size: 12px;
+}

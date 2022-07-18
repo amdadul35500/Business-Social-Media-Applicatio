@@ -1,0 +1,46 @@
+.edit-name-main{
+    margin-top: 30px;
+    margin-left: 70px;
+}
+.edit-name-flex{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.edit-name-flex-2{
+    width: 120px;
+}
+.edit-name-flex-2 img{
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.edit-name-username h4{
+    font-size: 18px;
+    font-weight: 500;
+}
+.edit-name-username h6{
+    font-size: 14px;
+    color: #0095f6;
+}
+.edit-name-flex-2 h4{
+    font-size: 16px;
+    font-weight: 400;
+}
+.edit-name-username input{
+    border: 1px solid rgba(219, 219, 219);
+    border-radius: 4px;
+    height: 30px;
+    width: 330px;
+    padding: 10px;
+}
+.edit-name-username input::placeholder{
+    color: #c4c4c4;
+    font-size: 12px;
+}
+.edit-name-btn{
+    text-align: end;
+    margin-bottom: 20px;
+}

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { useEffect, Suspense } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./pages/signup/Signup";
@@ -24,8 +24,27 @@ import {
   FollowPrivateRouter,
   AddConvPrivateRouter,
 } from "./private-Route/PrivateRoute";
+import { gapi } from "gapi-script";
+import Loading from "./components/loading/Loading";
+import EditProfile from "./pages/editProfilePage.js/EditProfile";
+import CreatePost from "./pages/createPost/CreatePost";
+import Filter from "./pages/filter/Filter";
+import PhotoShare from "./pages/photoShare/PhotoShare";
+
+const GOOGLE_CLIENT_ID =
+  "1034266394471-jbgsc0o8srtusgvd6dlcd17ssl1b06cp.apps.googleusercontent.com";
 
 function App() {
+  useEffect(() => {
+    const start = () => {
+      gapi.client.init({
+        clientId: GOOGLE_CLIENT_ID,
+        scope: "",
+      });
+    };
+    gapi.load("client: auth2", start);
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -33,9 +52,11 @@ function App() {
         <Route
           path="/"
           element={
-            <HomePrivateRoute>
-              <Home />
-            </HomePrivateRoute>
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <HomePrivateRoute>
+                <Home />
+              </HomePrivateRoute>
+            </Suspense>
           }
         />
         <Route
@@ -60,6 +81,11 @@ function App() {
         <Route path="/startbusiness" element={<StartBusiness />} />
         <Route path="/description" element={<Description />} />
         <Route path="/uploadingbusiness" element={<UploadingBusiness />} />
+        <Route path="/loading" element={<Loading />} />
+        <Route path="/editprofile" element={<EditProfile />} />
+        <Route path="/createpost" element={<CreatePost />} />
+        <Route path="/filter" element={<Filter />} />
+        <Route path="/photoshare" element={<PhotoShare />} />
         <Route
           path="/profile"
           element={

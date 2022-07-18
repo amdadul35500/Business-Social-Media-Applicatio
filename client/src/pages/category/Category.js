@@ -76,8 +76,11 @@ const Category = () => {
                     {error ? error : ""}
                   </p>
                   <div className="category-continue">
-                    <div className="category-continue-box">
-                      <h4 onClick={handleClick}>
+                    <div
+                      className="category-continue-box"
+                      onClick={handleClick}
+                    >
+                      <h4>
                         {loading ? (
                           <CircularProgress
                             color="inherit"

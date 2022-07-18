@@ -1,0 +1,38 @@
+.create-post {
+ text-align: center;
+ margin-top: 70px;
+}
+.create-post img{
+    width: 180px;
+    height: 180px;
+}
+.create-post-h1{
+    text-align: center;
+    color: #959595;
+    font-size: 28px;
+    font-weight: 400;
+    margin: 45px 0;
+}
+.create-post-btn{
+    text-align: center;
+}
+.create-post-btn button{
+    border: 1px solid #2dc0da;
+    background: #2dc0da;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 500;
+    width: 340px;
+    padding: 6px 0;
+}
+.create-post-btn-2 button{
+    border: 1px solid #2dc0da;
+    background: #2dc0da;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0px;
+    padding: 8px 0;
+    font-weight: 500;
+    width: 340px;
+}

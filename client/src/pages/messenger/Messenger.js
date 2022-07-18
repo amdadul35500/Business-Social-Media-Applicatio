@@ -15,7 +15,10 @@ const Messenger = () => {
   const [clickedConversationInfo, setClickedConversationInfo] = useState({});
   const [message, setMessage] = useState("");
   const [allMessage, setAllMessage] = useState([]);
+  const [aUser, setAUser] = useState({});
   const { currentUser } = useGlobalContext();
+
+  const PF = `http://localhost:5000/profilePicture/${aUser.profilePhoto}`;
 
   // for socket
   useEffect(() => {
@@ -99,6 +102,21 @@ const Messenger = () => {
     }
   };
 
+  // get a particular user
+  useEffect(() => {
+    const getAUser = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `api/users/oneUser/${clickedConversationInfo.beenAddToConversation}`
+        );
+        setAUser(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAUser();
+  }, [clickedConversationInfo]);
+
   return (
     <>
       <Header />
@@ -117,7 +135,7 @@ const Messenger = () => {
                 <div className="conv-people">
                   <ReactScrollBar className="mes-container">
                     {allConversation.map((conversation) => (
-                      <>
+                      <div key={conversation.id}>
                         <div
                           className="conv-name-flex"
                           onClick={() => {
@@ -130,12 +148,11 @@ const Messenger = () => {
                             );
                           }}
                           style={{ cursor: "pointer" }}
-                          key={conversation.id}
                         >
                           <Conversation conversation={conversation} />
                         </div>
                         <hr />
-                      </>
+                      </div>
                     ))}
                   </ReactScrollBar>
                 </div>
@@ -144,8 +161,11 @@ const Messenger = () => {
             <div className="col-8">
               <div className="msg-box">
                 <div className="msg-name-flex">
-                  <img src="./images/IMG_3909.JPG" alt="img" />
-                  <span>Amdadul Haque</span>
+                  <img
+                    src={aUser["profilePhoto"] ? PF : "./images/noAvatar.png"}
+                    alt="img"
+                  />
+                  <span>{aUser["username"] ? aUser.username : ""}</span>
                 </div>
                 <hr style={{ marginTop: "10px" }} />
                 {Object.entries(clickedConversationInfo).length === 0 ? (
@@ -154,7 +174,7 @@ const Messenger = () => {
                       <div style={{ textAlign: "center" }}>
                         <svg
                           aria-label="Direct"
-                          class="_ab6-"
+                          className="_ab6-"
                           color="#262626"
                           fill="#262626"
                           height="96"
@@ -169,15 +189,15 @@ const Messenger = () => {
                             fill="none"
                             r="47"
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                           ></circle>
                           <line
                             fill="none"
                             stroke="currentColor"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             x1="69.286"
                             x2="41.447"
                             y1="33.21"
@@ -187,8 +207,8 @@ const Messenger = () => {
                             fill="none"
                             points="47.254 73.123 71.376 31.998 24.546 32.002 41.448 48.805 47.254 73.123"
                             stroke="currentColor"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                           ></polygon>
                         </svg>
                       </div>
@@ -208,7 +228,7 @@ const Messenger = () => {
                           }
                           key={message.id}
                         >
-                          <div>
+                          <div key={message.id}>
                             <div
                               className={
                                 Number(message.senderId) === currentUser.id
@@ -233,7 +253,7 @@ const Messenger = () => {
                     <div className="msg-input-fuild-flex">
                       <svg
                         aria-label="Emoji"
-                        class="_ab6-"
+                        className="_ab6-"
                         color="#262626"
                         fill="#262626"
                         height="24"

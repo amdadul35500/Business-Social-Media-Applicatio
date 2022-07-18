@@ -76,7 +76,13 @@ const SelectCoverPhoto = () => {
         <div className="select-cover-photo-box">
           <div className="select-cover-photo-img-box">
             <img
-              src={currentUser.profilePhoto ? PF : "./images/noAvatar.png"}
+              src={
+                currentUser.profilePhoto?.includes("https")
+                  ? currentUser.profilePhoto
+                  : currentUser.profilePhoto
+                  ? PF
+                  : "./images/noAvatar.png"
+              }
               alt="img"
               className="select-cover-photo-img"
             />
@@ -122,9 +128,11 @@ const SelectCoverPhoto = () => {
             {error ? error : ""}
           </p>
           <div className="select-cover-photo-continue">
-            <div className="select-cover-photo-continue-sub">
-              <h3 onClick={handleContinue}>
-                {" "}
+            <div
+              className="select-cover-photo-continue-sub"
+              onClick={handleContinue}
+            >
+              <h3>
                 {loading ? (
                   <CircularProgress color="inherit" className="circle-button" />
                 ) : (

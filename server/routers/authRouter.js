@@ -5,6 +5,10 @@ const {
   addUserValidators,
   addUserValidationHandler,
 } = require("../middlewares/userValidator");
+const { googleSignin } = require("../controllers/googleSigninController");
+
+// google sign in
+router.post("/signin/google", googleSignin);
 
 // signup
 router.post("/signup", addUserValidators, addUserValidationHandler, signup);

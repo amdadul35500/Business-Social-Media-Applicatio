@@ -14,7 +14,10 @@ const signup = (req, res) => {
   };
 
   connection.query(sqlInsert, [...userInfo.info], (error, result) => {
-    res.status(200).json(result);
+    if (result) {
+      res.status(200).json(result);
+    }
+
     if (error) {
       res.status(500).json(error);
     }

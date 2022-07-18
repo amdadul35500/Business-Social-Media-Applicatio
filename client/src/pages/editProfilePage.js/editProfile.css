@@ -1,0 +1,31 @@
+.edit-profile{
+    background-color: #FAFAFA;
+    padding-bottom: 35px;
+}
+.edit-profile-container{
+    background: #FFFFFF;
+    margin-top: 10px;
+}
+.edit-left-side{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.edit-left-side h4{
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 !important;
+    margin-left: 30px !important;
+}
+.edit-left-side-main{
+    border-right: 1px solid rgba(219, 219, 219);
+}
+.edit-left-side-select{
+    border-left: 2px solid black;
+   
+}
+.edit-left-side-select-hover:hover{
+    background-color: rgba(250, 250, 250);
+    border-left: 2px solid rgba(219, 219, 219);
+}

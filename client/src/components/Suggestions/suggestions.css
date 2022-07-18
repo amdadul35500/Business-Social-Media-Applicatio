@@ -30,3 +30,7 @@
     color: #0F9BF6;
     cursor: pointer;
 }
+.sugg-circle span{
+    width: 15px !important;
+    height: 15px !important;
+}

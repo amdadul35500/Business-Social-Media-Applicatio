@@ -1,0 +1,17 @@
+.follow-btn-3{
+    background: #0095F6;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 26px;
+}
+.follow-btn-3 span{
+    width: 15px !important; 
+    height: 15px !important;
+}

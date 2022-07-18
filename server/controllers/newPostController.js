@@ -1,10 +1,10 @@
 const connection = require("../config/db");
 
 const newPost = (req, res) => {
-  const { userId, img } = req.body;
+  const { userId, img, description } = req.body;
   const sqlInsert =
-    "INSERT INTO posts(userId, img, createdAt) values(?,?,CURRENT_TIMESTAMP())";
-  connection.query(sqlInsert, [userId, img], (err, result) => {
+    "INSERT INTO posts(userId, img, description, createdAt) values(?,?,?,CURRENT_TIMESTAMP())";
+  connection.query(sqlInsert, [userId, img, description], (err, result) => {
     if (err) {
       res.send(err);
     }

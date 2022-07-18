@@ -1,0 +1,74 @@
+.filter-main-img img{
+    width: 100%;
+    height: 400px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+.filter-main-img h5{
+    font-size: 17px;
+}
+.filter-section img{
+    width: 90px;
+    height: 90px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+.filter{
+    padding: 30px 0;
+    background: #FAFAFA;
+}
+.filter-section h5{
+    font-size: 17px;
+    margin-top: 30px;
+}
+.filter-section div{
+    display: inline-block;
+    text-align: center;
+    margin-right: 12px;
+}
+.filter-section div h6{
+    font-size: 10px;
+    color: #b9b9b9;
+    margin-bottom: 4px;
+}
+.filter-second-section-flex div img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.filter-second-section-flex-img{
+    margin-right: 20px;
+}
+.filter-second-section-flex{
+    display: flex;
+    margin-top: 32px;
+    margin-left: 30px;
+}
+.filter-second-section-post-flex{
+    display: flex;
+    align-items: center;
+}
+.filter-second-section-h6{
+    font-size: 16px;
+    font-weight: 600;
+    color: #909090;
+    margin-bottom: 3px !important;
+}
+.filter-second-section-h6-2{
+    color: #c2c2c2;
+    font-weight: 400;
+    font-size: 14px;
+}
+.filter-second-section-post-flex div{
+    margin-right: 20px;
+}
+.filter-second-section-post-flex div h6{
+    margin: 0 !important;
+    color: #909090;
+    font-size: 13px;
+}
+.filter-second-section-post-flex div h5{
+    font-size: 10px;
+    color: #c7c7c7;
+}

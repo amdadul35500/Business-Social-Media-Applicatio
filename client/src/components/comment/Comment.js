@@ -19,7 +19,7 @@ const Comment = ({ comment }) => {
       }
     };
     fatch();
-  });
+  }, []);
 
   return (
     <>
@@ -41,7 +41,7 @@ const Comment = ({ comment }) => {
           fontSize: "11px",
           display: "block",
           color: "#ADADAD",
-          marginBottom: "3px",
+          marginBottom: "8px",
         }}
       >
         {format(comment.createdAt)}

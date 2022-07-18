@@ -6,10 +6,13 @@ import { axiosInstance } from "../../config";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { GoogleLogout } from "react-google-login";
+import ImagesFooter from "../../components/imageHeader/ImagesFooter";
 
 const Profile = () => {
   const [post, setPost] = useState([]);
@@ -25,6 +28,8 @@ const Profile = () => {
   const [desc, setDesc] = useState(currentUser.description);
 
   const PF = `http://localhost:5000/profilePicture/${currentUser.profilePhoto}`;
+  const GOOGLE_CLIENT_ID =
+    "1034266394471-jbgsc0o8srtusgvd6dlcd17ssl1b06cp.apps.googleusercontent.com";
 
   const style = {
     position: "absolute",
@@ -60,7 +65,6 @@ const Profile = () => {
         const { data } = await axiosInstance.get(
           `api/post/getFollow/${currentUser.id}`
         );
-        console.log(data);
         setFollowing(data);
       } catch (error) {
         console.log(error);
@@ -112,8 +116,8 @@ const Profile = () => {
     }
   };
 
-  // logout
-  const handleLogout = () => {
+  const onSuccess = () => {
+    console.log("logout seccess");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     navigate("/signin");
@@ -122,243 +126,268 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <div style={{ background: "#FAFAFA", height: "100vh" }}>
-        <div className="container-fluid">
-          <div className="row" style={{ background: "#FAFAFA" }}>
-            <div className="col-md-4 col-4">
-              <div className="first-col">
-                <div className="profile-img-flex">
-                  <img src={PF} alt="img" />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 col-8">
-              <div className="second-col">
-                <div style={{ width: "90%" }} className="second-col-f-r">
-                  <div className="profile-name-flex">
-                    <h4>{currentUser.username}</h4>
-                    <span onClick={handleUpdate}>Edit profile</span>
-                    <LogoutIcon className="logoutIcon" onClick={handleLogout} />
-                  </div>
-                  <span style={{ color: "#8E8E8E", fontWeight: "300" }}>
-                    {currentUser.email}
-                  </span>
-                  <div className="follow-flex">
-                    <div>
-                      <span className="profile-f-s-r">{post.length}</span>
-                      <span style={{ fontWeight: "300", marginLeft: "5px" }}>
-                        posts
-                      </span>
-                    </div>
-                    <div>
-                      <span className="profile-f-s-r">{follower.length}</span>
-                      <span style={{ fontWeight: "300", marginLeft: "5px" }}>
-                        followers
-                      </span>
-                    </div>
-                    <div>
-                      <span className="profile-f-s-r">{following.length}</span>
-                      <span style={{ fontWeight: "300", marginLeft: "5px" }}>
-                        following
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-4 profile-l-f-r">
-              <div style={{ marginTop: "55px" }}>
-                <div className="desc-flex">
-                  <span>Business Name :</span>
-                  <div>{currentUser.businessName}</div>
-                </div>
-                <div className="desc-flex">
-                  <span>Category :</span>
-                  <div>{currentUser.category}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{ background: "#FAFAFA" }}>
-          <div className="container">
-            <hr style={{ margin: "0" }} />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                margin: "10px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <svg
-                  aria-label=""
-                  class="_ab6-"
-                  color="#262626"
-                  fill="#262626"
-                  height="12"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  width="12"
-                  style={{ marginRight: "6px" }}
-                >
-                  <rect
-                    fill="none"
-                    height="18"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    width="18"
-                    x="3"
-                    y="3"
-                  ></rect>
-                  <line
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    x1="9.015"
-                    x2="9.015"
-                    y1="3"
-                    y2="21"
-                  ></line>
-                  <line
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    x1="14.985"
-                    x2="14.985"
-                    y1="3"
-                    y2="21"
-                  ></line>
-                  <line
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    x1="21"
-                    x2="3"
-                    y1="9.015"
-                    y2="9.015"
-                  ></line>
-                  <line
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    x1="21"
-                    x2="3"
-                    y1="14.985"
-                    y2="14.985"
-                  ></line>
-                </svg>
-                <span
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: "500",
-                    letterSpacing: "2px",
-                  }}
-                >
-                  POSTS
-                </span>
-              </div>
-            </div>
-
-            <div className="row gy-md-4 g-2" style={{ marginBottom: "23px" }}>
-              {post.map((singlePost) => (
-                <div className="col-4 for-timeline-img-r">
-                  <div className="timeline-img">
+      <div style={{ background: "#FAFAFA" }}>
+        <div style={{ background: "#FAFAFA", height: "100vh" }}>
+          <div className="container-fluid">
+            <div className="row" style={{ background: "#FAFAFA" }}>
+              <div className="col-md-4 col-4">
+                <div className="first-col">
+                  <div className="profile-img-flex">
                     <img
-                      src={`http://localhost:5000/images/${singlePost.img}`}
+                      src={
+                        currentUser.profilePhoto.includes("https")
+                          ? currentUser.profilePhoto
+                          : PF.includes("http")
+                          ? PF
+                          : "./images/noAvatar.png"
+                      }
                       alt="img"
                     />
                   </div>
                 </div>
-              ))}
+              </div>
+
+              <div className="col-md-4 col-8">
+                <div className="second-col">
+                  <div style={{ width: "92%" }} className="second-col-f-r">
+                    <div className="profile-name-flex">
+                      <h4>{currentUser.username}</h4>
+                      <NavLink to="/editprofile">
+                        <span onClick={handleUpdate}>Edit profile</span>
+                      </NavLink>
+
+                      <svg
+                        aria-label="Options"
+                        className="_ab6-"
+                        color="#262626"
+                        fill="#262626"
+                        height="24"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        style={{ cursor: "pointer" }}
+                        onClick={handleOpen}
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          fill="none"
+                          r="8.635"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                        ></circle>
+                        <path
+                          d="M14.232 3.656a1.269 1.269 0 01-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 01-.796.66m-.001 16.688a1.269 1.269 0 01.796.66l.505.996h1.862l.505-.996a1.269 1.269 0 01.796-.66M3.656 9.768a1.269 1.269 0 01-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 01.66.796m16.688-.001a1.269 1.269 0 01.66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 01-.66-.796M7.678 4.522a1.269 1.269 0 01-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 01-.096 1.03m11.8 11.799a1.269 1.269 0 011.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 01.096-1.03m-14.956.001a1.269 1.269 0 01.096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 011.03.096m11.799-11.8a1.269 1.269 0 01-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 01-1.03-.096"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                        ></path>
+                      </svg>
+                    </div>
+                    <span
+                      style={{
+                        color: "#8E8E8E",
+                        fontWeight: "300",
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      {currentUser.email}
+                    </span>
+                    <div className="follow-flex">
+                      <div style={{ textAlign: "center" }}>
+                        <span
+                          className="profile-f-s-r"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {post.length}
+                        </span>
+                        <h4 style={{ fontWeight: "400", fontSize: "16px" }}>
+                          posts
+                        </h4>
+                      </div>
+                      <div style={{ textAlign: "center" }}>
+                        <span
+                          className="profile-f-s-r"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {follower.length}
+                        </span>
+                        <h4 style={{ fontWeight: "400", fontSize: "16px" }}>
+                          followers
+                        </h4>
+                      </div>
+                      <div style={{ textAlign: "center" }}>
+                        <span
+                          className="profile-f-s-r"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {following.length}
+                        </span>
+                        <h4 style={{ fontWeight: "400", fontSize: "16px" }}>
+                          following
+                        </h4>
+                      </div>
+                    </div>
+                    <div className="bio-info">
+                      <h5>{currentUser.name && currentUser.name}</h5>
+                      <h6>{currentUser.bio && currentUser.bio}</h6>
+                      <h6>
+                        {currentUser.gender && `Gender : ${currentUser.gender}`}
+                      </h6>
+                      <a
+                        href={`https://${currentUser.website}`}
+                        target="_blank"
+                      >
+                        {currentUser.website && currentUser.website}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style={{ background: "#FAFAFA" }}>
+            <div className="container">
+              <hr style={{ marginTop: "36px" }} />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <svg
+                    aria-label=""
+                    className="_ab6-"
+                    color="#262626"
+                    fill="#262626"
+                    height="12"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="12"
+                    style={{ marginRight: "6px" }}
+                  >
+                    <rect
+                      fill="none"
+                      height="18"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      width="18"
+                      x="3"
+                      y="3"
+                    ></rect>
+                    <line
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      x1="9.015"
+                      x2="9.015"
+                      y1="3"
+                      y2="21"
+                    ></line>
+                    <line
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      x1="14.985"
+                      x2="14.985"
+                      y1="3"
+                      y2="21"
+                    ></line>
+                    <line
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      x1="21"
+                      x2="3"
+                      y1="9.015"
+                      y2="9.015"
+                    ></line>
+                    <line
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      x1="21"
+                      x2="3"
+                      y1="14.985"
+                      y2="14.985"
+                    ></line>
+                  </svg>
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "500",
+                      letterSpacing: "2px",
+                    }}
+                  >
+                    POSTS
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className="row gy-md-4 g-2"
+                style={{ paddingBottom: "23px" }}
+              >
+                {post.map((singlePost) => (
+                  <div className="col-4 for-timeline-img-r" key={singlePost.id}>
+                    <div className="timeline-img">
+                      <img
+                        src={`http://localhost:5000/images/${singlePost.img}`}
+                        alt="img"
+                      />
+                    </div>
+                    <ImagesFooter singlePost={singlePost} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       {/* modal */}
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        <Fade in={open}>
-          <Box sx={style}>
-            <h5
-              style={{
-                marginTop: "8px",
-                marginBottom: "2px",
-                fontSize: "18px",
-              }}
-            >
-              Username
-            </h5>
-            <input
-              type="text"
-              style={{ width: "100%", padding: "4px" }}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <h5
-              style={{
-                marginTop: "8px",
-                marginBottom: "2px",
-                fontSize: "18px",
-              }}
-            >
-              Email
-            </h5>
-            <input
-              type="text"
-              style={{ width: "100%", padding: "4px" }}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <h5
-              style={{
-                marginTop: "8px",
-                marginBottom: "2px",
-                fontSize: "18px",
-              }}
-            >
-              Description
-            </h5>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="3"
-              className="profile-modal-textare"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-            ></textarea>
-            <Button variant="contained" onClick={handleUpdateInfo}>
-              Update
-            </Button>
-          </Box>
-        </Fade>
+        <Box sx={style}>
+          <div className="modal-box">
+            <hr />
+            <GoogleLogout
+              className="googleLogOut"
+              clientId={GOOGLE_CLIENT_ID}
+              buttonText="Log out"
+              onLogoutSuccess={onSuccess}
+            ></GoogleLogout>
+            <hr />
+            <NavLink to="/editprofile">
+              <h5>Edit Profile</h5>
+            </NavLink>
+            <hr />
+          </div>
+        </Box>
       </Modal>
     </>
   );

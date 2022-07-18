@@ -9,9 +9,9 @@
     height: 40px;
     border-radius: 2px;
     object-fit: cover;
+    margin-right: 13px;
 }
 .follow-content-flex span{
-    margin-left: 10px;
     font-weight: 500;
 }
 .follow-btn{
@@ -21,4 +21,24 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.follow-btn-2{
+    background: #0095F6;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 26px;
+}
+.follow-btn-2 span{
+    width: 15px !important; 
+    height: 15px !important;
 }

@@ -6,6 +6,7 @@ import { axiosInstance } from "../../config";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/context";
 import CircularProgress from "@mui/material/CircularProgress";
+import { GoogleLogin } from "react-google-login";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,9 @@ const Signin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setCurrentUser } = useGlobalContext();
+
+  const GOOGLE_CLIENT_ID =
+    "1034266394471-jbgsc0o8srtusgvd6dlcd17ssl1b06cp.apps.googleusercontent.com";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -54,11 +58,44 @@ const Signin = () => {
     }
   };
 
+  const onSuccess = async (res) => {
+    try {
+      const response = await axiosInstance.post("api/auth/signin/google", {
+        username: res.profileObj.name,
+        email: res.profileObj.email,
+        images: res.profileObj.imageUrl,
+        profileId: res.profileObj.googleId,
+      });
+
+      localStorage.setItem("token", JSON.stringify(response.data[1]));
+      const { data } = await axiosInstance.get(
+        `api/users/currentUser/?email=${res.profileObj.email}`
+      );
+      setCurrentUser(data);
+      if (
+        data?.businessAddress &&
+        data?.category &&
+        data?.description &&
+        data?.businessName
+      ) {
+        navigate("/");
+      } else {
+        navigate("/businessname");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onFailure = (res) => {
+    console.log(res);
+  };
+
   return (
     <div className="signup-page">
       <div className="container-fluid">
         <div className="row">
-          <div className="signup-main">
+          <div className="signup-main" style={{ height: "100vh" }}>
             <div className="signup-logo signin-logo">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +171,7 @@ const Signin = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "100px",
+                      marginLeft: "77px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}
@@ -152,14 +189,15 @@ const Signin = () => {
                     {emptyError ? emptyError : ""}
                   </p>
                   <div className="singup-input-box">
-                    <div
+                    <button
                       className="singup-input singin-input"
                       style={{
                         background: "#2DC0DA",
                         justifyContent: "center",
+                        border: "none",
                       }}
                     >
-                      <button
+                      <a
                         style={{
                           border: "none",
                           outline: "none",
@@ -174,12 +212,41 @@ const Signin = () => {
                             color="inherit"
                           />
                         ) : (
-                          "Sing Up"
+                          "Log In"
                         )}
-                      </button>
-                    </div>
+                      </a>
+                    </button>
                   </div>
                 </form>
+                <h6
+                  style={{
+                    fontWeight: "300",
+                    fontSize: "12px",
+                    textAlign: "center",
+                    color: "#8B8B8B",
+                    marginTop: "7px",
+                    marginBottom: "7px",
+                  }}
+                >
+                  or
+                </h6>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      width: "90%",
+                    }}
+                  >
+                    <GoogleLogin
+                      className="google-button"
+                      clientId={GOOGLE_CLIENT_ID}
+                      buttonText="Continue with Google"
+                      onSuccess={onSuccess}
+                      onFailure={onFailure}
+                      cookiePolicy={"single_host_origin"}
+                      isSignedIn={true}
+                    ></GoogleLogin>
+                  </div>
+                </div>
 
                 <div className="signup-link-flex"></div>
                 <NavLink to="/signup">

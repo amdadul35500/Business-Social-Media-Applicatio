@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./suggestions.css";
 import { useGlobalContext } from "../../context/context";
 import { axiosInstance } from "../../config";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Suggestions = ({ user }) => {
   const [follow, setFollow] = useState("It's you");
   const { currentUser } = useGlobalContext();
   const PF = `http://localhost:5000/profilePicture/${user.profilePhoto}`;
+  const [loading, setLoading] = useState(false);
 
   // check follow or unfollow
   useEffect(() => {
@@ -30,10 +32,12 @@ const Suggestions = ({ user }) => {
 
   const handleFollow = async () => {
     try {
+      setLoading(true);
       const { data } = await axiosInstance.post("api/users/follow", {
         followerId: currentUser.id,
         followingId: user.id,
       });
+      setLoading(false);
       if (data === "user has been followed!") {
         setFollow("Following");
       }
@@ -58,12 +62,10 @@ const Suggestions = ({ user }) => {
         <div className="home-user-name-suggestions-people-img">
           <img
             src={
-              user.profilePhoto
-                ? user.profilePhoto.length > 100
-                  ? user.profilePhoto
-                  : user.profilePhoto.length < 100
-                  ? PF
-                  : "./images/noAvatar.png"
+              user.profilePhoto.includes("https")
+                ? user.profilePhoto
+                : PF.includes("http")
+                ? PF
                 : "./images/noAvatar.png"
             }
             alt="img"
@@ -74,7 +76,16 @@ const Suggestions = ({ user }) => {
           <h4>{user.email}</h4>
         </div>
         <div className="home-user-name-suggestions-people-switch">
-          <span onClick={handleFollow}>{follow}</span>
+          <span onClick={handleFollow} className="sugg-circle">
+            {loading ? (
+              <CircularProgress
+                color="inherit"
+                className="circle-button-follow"
+              />
+            ) : (
+              follow
+            )}
+          </span>
         </div>
       </div>
     </div>
