@@ -24,6 +24,7 @@
 .edit-name-username h6{
     font-size: 14px;
     color: #0095f6;
+    cursor: pointer;
 }
 .edit-name-flex-2 h4{
     font-size: 16px;

@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../context/context";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config";
 import CircularProgress from "@mui/material/CircularProgress";
+import { baseURL } from "../../config";
 
 const SingleAddUser = ({ user }) => {
   const [follow, setFollow] = useState("It's you");
@@ -11,7 +12,7 @@ const SingleAddUser = ({ user }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const PF = `http://localhost:5000/profilePicture/${user.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${user.profilePhoto}`;
 
   // check been add or not
   useEffect(() => {

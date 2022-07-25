@@ -3,11 +3,12 @@ import "./filter.css";
 import Header from "../../layout/header/Header";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/context";
+import { baseURL } from "../../config";
 
 const Filter = () => {
   const { file, currentUser } = useGlobalContext();
   const navigate = useNavigate();
-  const PF = `http://localhost:5000/profilePicture/${currentUser?.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${currentUser?.profilePhoto}`;
 
   useEffect(() => {
     if (file === null) {

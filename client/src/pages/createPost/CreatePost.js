@@ -37,7 +37,7 @@ const CreatePost = () => {
     <div>
       <Header />
       <div className="create-post">
-        <img src="./images/add-post.png" alt="img" />
+        <img src="./images/add-post.png" alt="img" onClick={handleButton} />
       </div>
       <h1 className="create-post-h1">Share Photo and Videos</h1>
       <input

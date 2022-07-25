@@ -9,6 +9,7 @@ import { axiosInstance } from "../../config";
 import CircularProgress from "@mui/material/CircularProgress";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useGlobalContext } from "../../context/context";
+import { ToastContainer, toast } from "react-toastify";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -90,6 +91,7 @@ const Signup = () => {
         navigate("/businessname");
       }
     } catch (error) {
+      toast.error("This email already exist!");
       console.log(error);
     }
   };
@@ -100,6 +102,7 @@ const Signup = () => {
 
   return (
     <div className="signup-page">
+      <ToastContainer position="bottom-center" />
       <div className="container-fluid">
         <div className="row">
           <div className="signup-main">

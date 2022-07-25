@@ -13,6 +13,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate, NavLink } from "react-router-dom";
 import { GoogleLogout } from "react-google-login";
 import ImagesFooter from "../../components/imageHeader/ImagesFooter";
+import { baseURL } from "../../config";
 
 const Profile = () => {
   const [post, setPost] = useState([]);
@@ -27,7 +28,7 @@ const Profile = () => {
   const [email, setEmail] = useState(currentUser.email);
   const [desc, setDesc] = useState(currentUser.description);
 
-  const PF = `http://localhost:5000/profilePicture/${currentUser.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${currentUser.profilePhoto}`;
   const GOOGLE_CLIENT_ID =
     "1034266394471-jbgsc0o8srtusgvd6dlcd17ssl1b06cp.apps.googleusercontent.com";
 
@@ -135,7 +136,7 @@ const Profile = () => {
                   <div className="profile-img-flex">
                     <img
                       src={
-                        currentUser.profilePhoto.includes("https")
+                        currentUser.profilePhoto?.includes("https")
                           ? currentUser.profilePhoto
                           : PF.includes("http")
                           ? PF
@@ -194,7 +195,7 @@ const Profile = () => {
                         letterSpacing: "1px",
                       }}
                     >
-                      {currentUser.email}
+                      {currentUser.email?.replace("_google", "")}
                     </span>
                     <div className="follow-flex">
                       <div style={{ textAlign: "center" }}>
@@ -232,10 +233,14 @@ const Profile = () => {
                       </div>
                     </div>
                     <div className="bio-info">
-                      <h5>{currentUser.name && currentUser.name}</h5>
-                      <h6>{currentUser.bio && currentUser.bio}</h6>
+                      <h5>
+                        {currentUser.businessName && currentUser.businessName}
+                      </h5>
+                      <h5>
+                        {currentUser.phonenumber && currentUser.phonenumber}
+                      </h5>
                       <h6>
-                        {currentUser.gender && `Gender : ${currentUser.gender}`}
+                        {currentUser.description && currentUser.description}
                       </h6>
                       <a
                         href={`https://${currentUser.website}`}
@@ -353,7 +358,7 @@ const Profile = () => {
                   <div className="col-4 for-timeline-img-r" key={singlePost.id}>
                     <div className="timeline-img">
                       <img
-                        src={`http://localhost:5000/images/${singlePost.img}`}
+                        src={`${baseURL}images/${singlePost.img}`}
                         alt="img"
                       />
                     </div>

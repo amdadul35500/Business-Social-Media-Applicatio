@@ -6,11 +6,16 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    margin-right: 17px;
     object-fit: cover;
 }
+.home-user-name-img{
+    flex-basis: 21%;
+}
 .home-user-name-name{
-    margin-right: 100px;
+    flex-basis: 67%;
+}
+.home-user-name-switch{
+    flex-basis: 12%;
 }
 .home-user-name-name h3{
     font-size: 14px;

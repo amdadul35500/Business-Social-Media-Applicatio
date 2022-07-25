@@ -1,13 +1,14 @@
 const connection = require("../config/db");
 
 const updateAll = (req, res) => {
-  const { name, username, website, bio, gender, email, phonenumber } = req.body;
+  const { businessName, username, website, description, email, phonenumber } =
+    req.body;
   const { id } = req.params;
   const sqlUpdate =
-    "UPDATE users SET name = ?, username = ?, email = ?, gender = ?, bio = ?, phonenumber = ?, website = ? WHERE id = ?";
+    "UPDATE users SET  businessName = ?, username = ?, email = ?,  description = ?, phonenumber = ?, website = ? WHERE id = ?";
   connection.query(
     sqlUpdate,
-    [name, username, email, gender, bio, phonenumber, website, id],
+    [businessName, username, email, description, phonenumber, website, id],
     (err, result) => {
       if (err) {
         res.send(err);
@@ -19,6 +20,7 @@ const updateAll = (req, res) => {
             res.send(err);
           }
           if (result) {
+            console.log(result);
             res.send(result[0]);
           }
         });

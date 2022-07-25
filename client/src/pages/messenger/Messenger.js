@@ -8,7 +8,9 @@ import ReactScrollBar from "react-scroll-to-bottom";
 import { format } from "timeago.js";
 import io from "socket.io-client";
 import { axiosInstance } from "../../config";
-const socket = io.connect(`${axiosInstance}`);
+import { baseURL } from "../../config";
+const baseURL2 = "http://localhost:5000";
+const socket = io.connect(`${baseURL2}`);
 
 const Messenger = () => {
   const [allConversation, setAllConversation] = useState([]);
@@ -18,7 +20,7 @@ const Messenger = () => {
   const [aUser, setAUser] = useState({});
   const { currentUser } = useGlobalContext();
 
-  const PF = `http://localhost:5000/profilePicture/${aUser.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${aUser.profilePhoto}`;
 
   // for socket
   useEffect(() => {

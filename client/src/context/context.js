@@ -1,12 +1,10 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 
 const AppContext = createContext();
+const user = JSON.parse(localStorage.getItem("user"));
 
 const AppProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user") || null)
-  );
-
+  const [currentUser, setCurrentUser] = useState(user);
   const [forLoadHomePage, setForLoadHomePage] = useState(false);
   const [file, setFile] = useState(null);
 

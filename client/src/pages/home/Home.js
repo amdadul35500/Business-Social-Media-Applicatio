@@ -8,13 +8,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { axiosInstance } from "../../config";
 import { NavLink } from "react-router-dom";
+import { baseURL } from "../../config";
 
 const Home = () => {
   const [allPost, setAllPost] = useState([]);
   const [allUser, setAllUser] = useState([]);
   const { currentUser, forLoadHomePage } = useGlobalContext();
 
-  const PF = `http://localhost:5000/profilePicture/${currentUser.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${currentUser.profilePhoto}`;
 
   // get all user
   useEffect(() => {
@@ -97,7 +98,7 @@ const Home = () => {
               >
                 <div style={{ position: "fixed" }}>
                   <div style={{ display: "flex", justifyContent: "start" }}>
-                    <NavLink to="/profile">
+                    <NavLink to="/profile" style={{ width: "100%" }}>
                       <div className="home-user-name-flex">
                         <div className="home-user-name-img">
                           <img
@@ -113,7 +114,7 @@ const Home = () => {
                         </div>
                         <div className="home-user-name-name">
                           <h3>{currentUser.username}</h3>
-                          <h4>{currentUser.email}</h4>
+                          <h4>{currentUser.email?.replace("_google", "")}</h4>
                         </div>
                         <div className="home-user-name-switch">
                           <span>Switch</span>

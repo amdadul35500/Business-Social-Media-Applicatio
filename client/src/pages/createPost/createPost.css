@@ -5,6 +5,7 @@
 .create-post img{
     width: 180px;
     height: 180px;
+    cursor: pointer;
 }
 .create-post-h1{
     text-align: center;

@@ -3,11 +3,12 @@ import "./suggestions.css";
 import { useGlobalContext } from "../../context/context";
 import { axiosInstance } from "../../config";
 import CircularProgress from "@mui/material/CircularProgress";
+import { baseURL } from "../../config";
 
 const Suggestions = ({ user }) => {
   const [follow, setFollow] = useState("It's you");
   const { currentUser } = useGlobalContext();
-  const PF = `http://localhost:5000/profilePicture/${user.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${user.profilePhoto}`;
   const [loading, setLoading] = useState(false);
 
   // check follow or unfollow
@@ -62,7 +63,7 @@ const Suggestions = ({ user }) => {
         <div className="home-user-name-suggestions-people-img">
           <img
             src={
-              user.profilePhoto.includes("https")
+              user.profilePhoto?.includes("https")
                 ? user.profilePhoto
                 : PF.includes("http")
                 ? PF
@@ -73,7 +74,7 @@ const Suggestions = ({ user }) => {
         </div>
         <div className="home-user-name-suggestions-people-name">
           <h3>{user.username}</h3>
-          <h4>{user.email}</h4>
+          <h4>{user.email?.replace("_google", "")}</h4>
         </div>
         <div className="home-user-name-suggestions-people-switch">
           <span onClick={handleFollow} className="sugg-circle">

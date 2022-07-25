@@ -15,8 +15,10 @@
 .edit-left-side h4{
     font-size: 16px;
     font-weight: 400;
-    margin: 0 !important;
-    margin-left: 30px !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 30px;
 }
 .edit-left-side-main{
     border-right: 1px solid rgba(219, 219, 219);

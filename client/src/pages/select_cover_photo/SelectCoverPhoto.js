@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/context";
 import { axiosInstance } from "../../config";
 import CircularProgress from "@mui/material/CircularProgress";
+import { baseURL } from "../../config";
 
 const SelectCoverPhoto = () => {
   const [foruseEffect, setforuseEffect] = useState(false);
@@ -16,7 +17,7 @@ const SelectCoverPhoto = () => {
   const inputRef = useRef();
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useGlobalContext();
-  const PF = `http://localhost:5000/profilePicture/${currentUser.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${currentUser.profilePhoto}`;
 
   // get profil photo
   useEffect(() => {
@@ -87,7 +88,7 @@ const SelectCoverPhoto = () => {
               className="select-cover-photo-img"
             />
           </div>
-          <h4>Select Profile Photo</h4>
+          <h4 onClick={clickForInputFild}>Select Profile Photo</h4>
           <div className="select-cover-photo-camera">
             <input
               type="file"

@@ -1,11 +1,12 @@
 import React from "react";
 import "./imagesFooter.css";
 import { useGlobalContext } from "../../context/context";
+import { baseURL } from "../../config";
 
 const ImagesFooter = ({ singlePost }) => {
   const { currentUser } = useGlobalContext();
-  const PF = `http://localhost:5000/profilePicture/${currentUser?.profilePhoto}`;
-  console.log(singlePost);
+  const PF = `${baseURL}profilePicture/${currentUser?.profilePhoto}`;
+
   return (
     <>
       <div className="images-footer-main-flex">

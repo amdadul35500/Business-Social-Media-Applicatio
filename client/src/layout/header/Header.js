@@ -5,6 +5,7 @@ import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { useGlobalContext } from "../../context/context";
 import { NavLink, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config";
+import { baseURL } from "../../config";
 
 const Header = () => {
   const [file, setFile] = useState(null);
@@ -13,36 +14,7 @@ const Header = () => {
   const { currentUser, setForLoadHomePage, forLoadHomePage } =
     useGlobalContext();
 
-  const PF = `http://localhost:5000/profilePicture/${currentUser?.profilePhoto}`;
-
-  // function for upload photo
-  const handlePost = async () => {
-    if (file) {
-      const formData = new FormData();
-      const filename = Date.now() + "--" + file.name;
-      formData.append("name", filename);
-      formData.append("file", file);
-
-      try {
-        await axiosInstance.post(`api/post/photoUpload`, formData);
-        await axiosInstance.post(`api/post`, {
-          userId: currentUser.id,
-          img: filename,
-        });
-
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  const handleButton = () => {
-    inputRef.current.click();
-  };
-
-  // open logout modal
-  const openWonModal = () => {};
+  const PF = `${baseURL}profilePicture/${currentUser?.profilePhoto}`;
 
   return (
     <>
@@ -231,7 +203,7 @@ const Header = () => {
                   >
                     <img
                       src={
-                        currentUser.profilePhoto.includes("https")
+                        currentUser.profilePhoto?.includes("https")
                           ? currentUser.profilePhoto
                           : currentUser.profilePhoto
                           ? PF

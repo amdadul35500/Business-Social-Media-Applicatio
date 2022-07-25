@@ -3,13 +3,14 @@ import "./singleFollow.css";
 import { useGlobalContext } from "../../context/context";
 import { axiosInstance } from "../../config";
 import CircularProgress from "@mui/material/CircularProgress";
+import { baseURL } from "../../config";
 
 const SingleFollow = ({ user }) => {
   const [follow, setFollow] = useState("It's you");
   const [loading, setLoading] = useState(false);
   const { currentUser } = useGlobalContext();
 
-  const PF = `http://localhost:5000/profilePicture/${user.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${user.profilePhoto}`;
 
   // check follow or unfollow
   useEffect(() => {

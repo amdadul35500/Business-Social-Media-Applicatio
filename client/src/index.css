@@ -28,7 +28,10 @@ display: none !important;
 }
 .googleLogOut{
   width: 18% !important;
-height: 24px !important;
+ height: 24px !important;
+}
+.googleLogOut-2 button{
+  display: none !important;
 }
 .googleLogOut span{
   border: none !important;
@@ -212,6 +215,32 @@ height: 24px !important;
   }
   .imagefooter-small{
     display: none !important;
+  }
+  .edit-left-side h4{
+    margin-left: 10px !important;
+    font-size: 13px !important;
+  }
+  .edit-name-main{
+    margin-left: 5px !important;
+  }
+  .edit-name-flex-2{
+    width: 80px;
+  }
+  .edit-name-flex-2 h4{
+    font-size: 13px !important;
+  }
+  .edit-name-username input{
+    width: 180px !important;
+    font-size: 14px !important;
+  }
+  .edit-name-btn button{
+    font-size: 10px;
+  }
+  .edit-name-btn-password div button{
+    font-size: 10px !important;
+  }
+  .edit-name-flex-2{
+    width: 80px !important;
   }
 }
 

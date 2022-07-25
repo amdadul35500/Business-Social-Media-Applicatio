@@ -36,6 +36,7 @@
     font-weight: 400;
     margin-top: 15px;
     margin-bottom: 47px;
+    cursor: pointer;
 }
 .select-cover-photo-camera-sub{
     width: 65%;

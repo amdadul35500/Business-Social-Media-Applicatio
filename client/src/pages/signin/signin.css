@@ -74,3 +74,6 @@
 .singin-input{
     padding: 10px 30px;
 }
+.googleLogOut-2 button{
+    display: none !important;
+}

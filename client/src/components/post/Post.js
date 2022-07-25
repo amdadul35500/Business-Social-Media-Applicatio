@@ -4,6 +4,7 @@ import { axiosInstance } from "../../config";
 import { useGlobalContext } from "../../context/context";
 import Comment from "../comment/Comment";
 import { format } from "timeago.js";
+import { baseURL } from "../../config";
 
 const Post = ({ post, id }) => {
   const [userOfPost, setUserOfPost] = useState({});
@@ -15,8 +16,9 @@ const Post = ({ post, id }) => {
   const [commentData, setCommentData] = useState([]);
   const [forcomment, setforcomment] = useState(true);
 
-  const PF = `http://localhost:5000/images/${post.img}`;
-  const PF2 = `http://localhost:5000/profilePicture/${userOfPost.profilePhoto}`;
+  const PF = `${baseURL}images/${post.img}`;
+  const PF2 = `${baseURL}profilePicture/${userOfPost.profilePhoto}`;
+  console.log(userOfPost);
 
   // get a singel user by according to post id
   useEffect(() => {
@@ -24,6 +26,7 @@ const Post = ({ post, id }) => {
       const { data } = await axiosInstance.get(
         `api/users/oneUser/${post.userId}`
       );
+      console.log(data);
       setUserOfPost(data);
       try {
       } catch (error) {
@@ -114,7 +117,7 @@ const Post = ({ post, id }) => {
               <div className="user-photo">
                 <img
                   src={
-                    currentUser.profilePhoto.includes("https")
+                    currentUser.profilePhoto?.includes("https")
                       ? currentUser.profilePhoto
                       : currentUser.profilePhoto
                       ? PF2

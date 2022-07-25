@@ -28,7 +28,7 @@ const googleSignin = (req, res) => {
             const token = jwt.sign(userObject, process.env.JWT_SECRET, {
               expiresIn: process.env.JWT_EXPIRY,
             });
-            res.send(["Post success", token]);
+            res.status(200).send(["Post success", token]);
           }
         }
       );
@@ -42,7 +42,7 @@ const googleSignin = (req, res) => {
       const token = jwt.sign(userObject, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRY,
       });
-      res.send(["Already exist this user!", token]);
+      res.status(200).send(["Already exist this user!", token]);
     }
   });
 };

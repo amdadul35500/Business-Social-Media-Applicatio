@@ -7,6 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/context";
 import CircularProgress from "@mui/material/CircularProgress";
 import { GoogleLogin } from "react-google-login";
+import { ToastContainer, toast } from "react-toastify";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -31,9 +32,11 @@ const Signin = () => {
       setLoading(true);
       const { data } = await axiosInstance.post("api/auth/signin", userInfo);
       localStorage.setItem("token", JSON.stringify(data[1]));
+      console.log(data);
       if (data) {
         setEmail("");
         setPassword("");
+        console.log(data[0]);
         setCurrentUser(data[0]);
         if (data[0].profilePhoto) {
           setLoading(false);
@@ -50,6 +53,7 @@ const Signin = () => {
 
       if (error.response.data === "Worng password!") {
         setpasswordError(error.response.data);
+        setemailError("");
       }
       if (error.response.data === "Please enter email and password!") {
         setemptyError(error.response.data);
@@ -59,17 +63,18 @@ const Signin = () => {
   };
 
   const onSuccess = async (res) => {
+    console.log(res);
     try {
       const response = await axiosInstance.post("api/auth/signin/google", {
         username: res.profileObj.name,
-        email: res.profileObj.email,
+        email: `${res.profileObj.email}_google`,
         images: res.profileObj.imageUrl,
         profileId: res.profileObj.googleId,
       });
 
       localStorage.setItem("token", JSON.stringify(response.data[1]));
       const { data } = await axiosInstance.get(
-        `api/users/currentUser/?email=${res.profileObj.email}`
+        `api/users/currentUser/?email=${res.profileObj.email}_google`
       );
       setCurrentUser(data);
       if (
@@ -83,6 +88,7 @@ const Signin = () => {
         navigate("/businessname");
       }
     } catch (error) {
+      // toast.error("This email already exist!");
       console.log(error);
     }
   };
@@ -93,6 +99,8 @@ const Signin = () => {
 
   return (
     <div className="signup-page">
+      <ToastContainer position="bottom-center" />
+
       <div className="container-fluid">
         <div className="row">
           <div className="signup-main" style={{ height: "100vh" }}>
@@ -147,7 +155,7 @@ const Signin = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "100px",
+                      marginLeft: "78px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}
@@ -171,7 +179,7 @@ const Signin = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "77px",
+                      marginLeft: "78px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}
@@ -181,7 +189,7 @@ const Signin = () => {
                   <p
                     style={{
                       color: "red",
-                      marginLeft: "100px",
+                      marginLeft: "78px",
                       marginBottom: "0",
                       fontSize: "13px",
                     }}

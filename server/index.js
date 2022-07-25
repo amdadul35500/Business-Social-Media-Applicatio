@@ -22,7 +22,7 @@ app.use(
 // for socket.io
 const io = new Server(server, {
   cors: {
-    origin: "https://kpop21.com",
+    origin: "http://localhost:3000",
   },
 });
 

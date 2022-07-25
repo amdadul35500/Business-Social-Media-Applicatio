@@ -38,7 +38,8 @@ const UploadingBusiness = () => {
         const res = await axiosInstance.get(
           `api/users/currentUser/?email=${currentUser.email}`
         );
-        setCurrentUser(data);
+
+        setCurrentUser(res.data);
         if (data) {
           setLanguage(false);
           if (currentUser.profilePhoto) {

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./conversation.css";
 import { axiosInstance } from "../../config";
+import { baseURL } from "../../config";
 
 const Conversation = ({ conversation }) => {
   const [userByConversation, setUserByConversation] = useState({});
 
-  const PF = `http://localhost:5000/profilePicture/${userByConversation.profilePhoto}`;
+  const PF = `${baseURL}profilePicture/${userByConversation.profilePhoto}`;
 
   // get user info by conversation
   useEffect(() => {
